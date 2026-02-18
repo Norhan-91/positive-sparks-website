@@ -1,41 +1,151 @@
-<html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-    <title>Magical Arabic Positivity Garden</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 ومضات إيجابية - حديقة الإيجابية السحرية</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="hero">
-        <h1>Welcome to the Magical Arabic Positivity Garden!</h1>
-        <p>Discover tranquility and joy...</p>
+    <!-- Floating Petals Background -->
+    <div class="petals-container"></div>
+
+    <!-- Floating Butterflies -->
+    <div class="butterfly" style="--delay: 0s; --x: 10%; --duration: 15s;"></div>
+    <div class="butterfly" style="--delay: 2s; --x: 30%; --duration: 18s;"></div>
+    <div class="butterfly" style="--delay: 4s; --x: 60%; --duration: 20s;"></div>
+    <div class="butterfly" style="--delay: 6s; --x: 80%; --duration: 17s;"></div>
+
+    <!-- Audio Toggle -->
+    <div class="audio-control">
+        <button id="audio-toggle" title="تشغيل/إيقاف الموسيقى">🔊</button>
+        <audio id="bg-music" loop crossorigin="anonymous"></audio>
     </div>
-    <div id="mood-ai">
-        <h2>Mood AI</h2>
-        <p>Let us analyze your mood...</p>
-    </div>
-    <div id="gratitude-journal">
-        <h2>Your Gratitude Journal</h2>
-        <textarea placeholder="What are you grateful for today?"></textarea>
-    </div>
-    <div id="games">
-        <h2>Fun Games</h2>
-        <button>Play Game 1</button>
-        <button>Play Game 2</button>
-    </div>
-    <div id="daily-spark">
-        <h2>Daily Spark</h2>
-        <quote>Embrace positivity!</quote>
-    </div>
-    <div id="floating-petals">
-        <p>Visual effects with floating petals...</p>
-    </div>
-    <div id="butterflies">
-        <p>Interactive butterflies flying around...</p>
-    </div>
-    <div id="audio-controls">
-        <h2>Audio Controls</h2>
-        <button>Play Music</button>
-        <button>Pause Music</button>
-    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">✨ مرحباً بك في ومضات إيجابية ✨</h1>
+            <p class="hero-subtitle">مساحتك اليومية للسلام، الامتنان، والطاقة الجميلة</p>
+            <button class="hero-button" id="start-journey">🌈 ابدأ رحلتك</button>
+            
+            <!-- 3D Flowers in Hero -->
+            <div class="flowers-container">
+                <div class="flower" style="--flower-index: 1;"></div>
+                <div class="flower" style="--flower-index: 2;"></div>
+                <div class="flower" style="--flower-index: 3;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mood AI Section -->
+    <section class="mood-section" id="mood-section">
+        <h2 class="section-title">😊 كيف هو مزاجك اليوم؟</h2>
+        <p class="section-subtitle">اختر مزاجك لتلقي رسالة شخصية ملهمة</p>
+        
+        <div class="moods-container">
+            <button class="mood-sphere" data-mood="happy">
+                <span class="mood-emoji">😀</span>
+                <span class="mood-text">سعيد</span>
+            </button>
+            <button class="mood-sphere" data-mood="sad">
+                <span class="mood-emoji">😔</span>
+                <span class="mood-text">حزين</span>
+            </button>
+            <button class="mood-sphere" data-mood="stressed">
+                <span class="mood-emoji">😰</span>
+                <span class="mood-text">متوتر</span>
+            </button>
+            <button class="mood-sphere" data-mood="calm">
+                <span class="mood-emoji">😌</span>
+                <span class="mood-text">هادئ</span>
+            </button>
+            <button class="mood-sphere" data-mood="excited">
+                <span class="mood-emoji">🤩</span>
+                <span class="mood-text">متحمس</span>
+            </button>
+        </div>
+
+        <!-- AI Response Box -->
+        <div class="ai-response-box" id="ai-response" style="display: none;">
+            <div class="response-content">
+                <p class="typing-text" id="typing-text"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gratitude Section -->
+    <section class="gratitude-section" id="gratitude-section">
+        <h2 class="section-title">🙏 اكتب شيئاً أنت ممتن له اليوم</h2>
+        <p class="section-subtitle">كل شكر يزرع زهرة في حديقة قلبك</p>
+        
+        <div class="gratitude-input-container">
+            <textarea 
+                class="gratitude-input" 
+                id="gratitude-input" 
+                placeholder="أنا ممتن لـ..."
+                maxlength="500"
+            ></textarea>
+            <button class="flower-button" id="gratitude-submit">🌸 أرسل امتناني</button>
+        </div>
+
+        <!-- Random Quote -->
+        <div class="quote-box" id="quote-box" style="display: none;">
+            <p class="quote-text" id="quote-text"></p>
+        </div>
+
+        <!-- Gratitude List -->
+        <div class="gratitude-entries" id="gratitude-entries"></div>
+    </section>
+
+    <!-- Mini Games Section -->
+    <section class="games-section" id="games-section">
+        <h2 class="section-title">🎮 العبها وارفع طاقتك الإيجابية</h2>
+        
+        <!-- Game 1: Catch Flowers -->
+        <div class="game-card" id="game-catch-flowers">
+            <h3>🌼 اصطياد الأزهار</h3>
+            <p>اضغط على الأزهار المتساقطة واجمع النقاط!</p>
+            <canvas id="catch-canvas" width="400" height="300"></canvas>
+            <div class="game-score">
+                <span>النقاط: <span id="flower-score">0</span></span>
+                <button class="game-button" id="catch-start">ابدأ اللعبة</button>
+            </div>
+        </div>
+
+        <!-- Game 2: Positive Word Generator -->
+        <div class="game-card" id="game-words">
+            <h3>✨ مولد الكلمات الإيجابية</h3>
+            <p>اضغط للحصول على كلمة ملهمة كل يوم</p>
+            <div class="word-display" id="word-display">✨</div>
+            <button class="game-button" id="word-generate">أعطني ومضة إيجابية</button>
+        </div>
+    </section>
+
+    <!-- Daily Spark Section -->
+    <section class="daily-spark-section" id="daily-spark-section">
+        <h2 class="section-title">🌞 شرارتك اليومية</h2>
+        
+        <div class="daily-quote-box">
+            <p class="daily-quote" id="daily-quote"></p>
+            <p class="daily-affirmation" id="daily-affirmation"></p>
+        </div>
+
+        <!-- Energy Progress Bar -->
+        <div class="energy-section">
+            <h3>⚡ مستوى طاقتك الإيجابية اليوم</h3>
+            <div class="energy-bar-container">
+                <div class="energy-bar" id="energy-bar"></div>
+            </div>
+            <p class="energy-percentage" id="energy-percentage">0%</p>
+        </div>
+    </section>
+
+    <!-- Sparkle Effect Container -->
+    <div id="sparkle-container"></div>
+
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
