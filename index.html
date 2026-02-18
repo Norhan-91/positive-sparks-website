@@ -1,46 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Positive Sparks</title>
     <link rel="stylesheet" href="styles.css">
+    <title>حديقة الإيجابية السحرية</title>
 </head>
 <body>
-    <!-- Hero Section -->
-    <header class="hero">
-        <h1>Welcome to Positive Sparks!</h1>
-        <p>Your daily source of positivity and motivation.</p>
+    <header>
+        <h1>أهلاً بكم في حديقة الإيجابية السحرية</h1>
     </header>
-
-    <!-- Mood AI Section -->
-    <section class="mood-ai">
-        <h2>Mood AI</h2>
-        <p>Interact with our AI to uplift your mood!</p>
-        <button id="mood-ai-button">Get Mood Suggestion</button>
-    </section>
-
-    <!-- Gratitude Section -->
-    <section class="gratitude">
-        <h2>Gratitude Journal</h2>
-        <textarea placeholder="What are you grateful for today?"></textarea>
-        <button id="gratitude-submit">Submit</button>
-    </section>
-
-    <!-- Games Section -->
-    <section class="games">
-        <h2>Fun Games</h2>
-        <p>Enjoy our collection of uplifting games!</p>
-        <button id="games-button">Play Now</button>
-    </section>
-
-    <!-- Daily Spark Section -->
-    <section class="daily-spark">
-        <h2>Daily Spark</h2>
-        <p>Explore today's motivational quote!</p>
-        <blockquote id="daily-spark-quote">"Believe in yourself!"</blockquote>
-    </section>
-
+    <main>
+        <section>
+            <p>اكتشف السحر في كل لحظة إيجابية.</p>
+            <button onclick="generateMessage()">احصل على رسالة إيجابية</button>
+            <p id="message"></p>
+        </section>
+    </main>
+    <footer>
+        <p>حقوق الطبع والنشر &copy; 2026</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
