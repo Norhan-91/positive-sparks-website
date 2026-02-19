@@ -1,628 +1,340 @@
-// ======================================
-// 🌸 POSITIVE SPARKS - JAVASCRIPT 🌸
-// A Magical Positivity Garden Engine
-// ======================================
-
-// ======================================
-// DATA & CONFIGURATION
-// ======================================
+// 🌸 ومضات إيجابية - محرك الحديقة السحرية
 
 const moodData = {
-    happy: {
-        color: '#FFB6D9',
-        messages: [
-            'روعة! استمتع بهذه اللحظات السعيدة! ✨',
-            'سعادتك تضيء العالم! استمر في الابتسام! 😊',
-            'أنت تشع بإيجابية! الحياة معك جميلة! 🌟',
-            'رائع! هذا الشعور يستحق أن تحتفظ به! 💫'
-        ]
-    },
-    sad: {
-        color: '#A0D8F7',
-        messages: [
-            'كل شعور حزن يعلمنا درساً. أنت قوي! 💙',
-            'السحب ستمر والشمس ستشرق مجدداً. صبراً! 🌤️',
-            'حزنك صحي، لكن تذكر: أنت لست وحدك! 🤝',
-            'في كل ليل ظلام يأتي صباح جديد! ☀️'
-        ]
-    },
-    stressed: {
-        color: '#FFD9A8',
-        messages: [
-            'خذ نفساً عميقاً. أنت أقوى مما تعتقد! 🌬️',
-            'التوتر مؤقت، لكن قوتك دائمة! 💪',
-            'كل تحدٍ يقربك من النجاح! استمر! 🚀',
-            'تذكر: يمكنك التعامل مع هذا! 🔥'
-        ]
-    },
-    calm: {
-        color: '#E8D5F5',
-        messages: [
-            'هدوؤك هو قوة حقيقية! استمتع بهذا السلام! 🧘',
-            'في هذا الهدوء تجد الحكمة والوضوح! 🌙',
-            'أنت متوازن، وهذا أجمل حالاتك! ✨',
-            'حافظ على هذا الصفاء، إنه ثمين! 💎'
-        ]
-    },
-    excited: {
-        color: '#B8F3E8',
-        messages: [
-            'طاقتك معدية! اذهب وحقق أحلامك! 🎯',
-            'هذا الحماس سيأخذك للقمة! استمر! 🚀',
-            'أنت حريق من الإمكانيات! أشعل العالم! 🔥',
-            'يا لك من مذهل! العالم يحتاج طاقتك! ⭐'
-        ]
-    }
+  happy: {
+    colorClass: 'mood-happy',
+    flower: '🌷',
+    messages: ['سعادتك اليوم هدية جميلة، شاركها بابتسامة صغيرة مع من حولك. ✨', 'رائع! قلبك مشرق، واليوم ينتظر منك لمسة فرح إضافية. 💖', 'يا لها من طاقة جميلة! استمر، فوجودك يزرع النور في كل مكان. 🌟']
+  },
+  sad: {
+    colorClass: 'mood-sad',
+    flower: '🪻',
+    messages: ['أنا هنا معك... حتى الأيام الثقيلة تمر، وأنت تستحق الراحة واللطف. 💙', 'خذ نفساً عميقاً، فالغد يحمل لك صفحة أخف وألطف بإذن الله. 🌤️', 'حزنك لا يقلل منك، بل يكشف قوة قلبك الصبور. 🤍']
+  },
+  stressed: {
+    colorClass: 'mood-stressed',
+    flower: '🌼',
+    messages: ['تمهّل قليلاً، خطوة صغيرة بهدوء أفضل من قفزة متعبة. 🌿', 'كل ما عليك الآن: نفس عميق... وزفير... أنت تتقدم بالفعل. 🫶', 'قد يبدو اليوم مزدحماً، لكنك أقوى وأكثر مرونة مما تظن. ⚡']
+  },
+  calm: {
+    colorClass: 'mood-calm',
+    flower: '🪷',
+    messages: ['ما أجمل هدوءك... هذا السلام الداخلي مصدر إلهام حقيقي. 🌙', 'صفاؤك اليوم كنز، حافظ عليه بلحظة امتنان لطيفة. ✨', 'هدوءك ينعكس جمالاً على كل شيء حولك. 🤍']
+  },
+  excited: {
+    colorClass: 'mood-excited',
+    flower: '🌺',
+    messages: ['حماسك مُعدٍ! اجعل هذه الطاقة خطوة عملية نحو حلمك. 🚀', 'انطلق! اليوم مناسب جداً لبدء شيء جديد يسعدك. 🎯', 'هذا الوهج فيك مذهل، ثابر وستدهش نفسك قبل الآخرين. 🔥']
+  }
 };
 
-const positiveWords = [
-    'أمل 🌟',
-    'نجاح 🏆',
-    'شجاعة 💪',
-    'حب 💖',
-    'طمأنينة 🙏',
-    'إشراقة ☀️',
-    'قوة ⚡',
-    'جمال 🌸',
-    'سلام 🕊️',
-    'إبداع 🎨',
-    'صحة 💚',
-    'مرح 🎉',
-    'عزم 🎯',
-    'حكمة 📖',
-    'سخاء 🎁',
-    'صبر 🌿',
-    'تحسن 📈',
-    'فرح 😄',
-    'عطاء 💝',
-    'ضياء ✨'
-];
+const positiveWords = ['أمل', 'نجاح', 'شجاعة', 'حب', 'طمأنينة', 'إشراقة', 'فرح', 'عطاء'];
+const dailyQuotes = ['حين تمتّن، تزهر الحياة.', 'أنت قادر على تحويل يومك إلى مساحة نور.', 'حتى الخطوات الصغيرة تصنع فرقاً كبيراً.', 'القلب اللطيف أقوى مما يظن.'];
+const dailyAffirmations = ['أنا أستحق السلام والنجاح.', 'أختار اليوم أن أكون لطيفاً مع نفسي.', 'طاقتي تنمو مع كل فكرة جميلة.', 'أنا ممتن للنعم الصغيرة قبل الكبيرة.'];
 
-const dailyQuotes = [
-    'النجاح ليس وجهة، بل رحلة!',
-    'كل يوم جديد يحمل فرصة جديدة!',
-    'الحب هو أقوى قوة في الكون!',
-    'أنت أقوى مما تتخيل بكثير!',
-    'البسمة تغير كل شيء!',
-    'التغيير يبدأ من داخلك!',
-    'الامتنان يملأ الحياة بالمعنى!',
-    'كل خطوة صغيرة تحسب!',
-    'أنت تستحق الأفضل في الحياة!',
-    'الحياة جميلة عندما تركز على الإيجابيات!'
-];
-
-const dailyAffirmations = [
-    'أنا قادر على تحقيق أحلامي 💪',
-    'أستحق الحب والنجاح والسعادة 💖',
-    'كل يوم يجلب لي فرصاً جديدة ✨',
-    'أنا ممتن للحياة ولحسناتها 🙏',
-    'طاقتي إيجابية وقوية اليوم 🔥',
-    'أختار أن أكون سعيداً اليوم 😊',
-    'أنا قيمة حقيقية في هذا العالم 👑'
-];
-
-// ======================================
-// STATE MANAGEMENT
-// ======================================
-
-let appState = {
-    currentMood: null,
-    energyLevel: 0,
-    gratitudeEntries: JSON.parse(localStorage.getItem('gratitudeEntries')) || [],
-    moods: JSON.parse(localStorage.getItem('moods')) || [],
-    isGamePlaying: false
+const state = {
+  energy: Number(localStorage.getItem('energyLevel') || 0),
+  moods: JSON.parse(localStorage.getItem('moods') || '[]'),
+  gratitudeEntries: JSON.parse(localStorage.getItem('gratitudeEntries') || '[]'),
+  currentMood: null,
+  gameActive: false,
+  audioCtx: null,
+  ambientInterval: null
 };
 
-// ======================================
-// UTILITY FUNCTIONS
-// ======================================
+const $ = (id) => document.getElementById(id);
+const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-/**
- * Get random item from array
- */
-function getRandomItem(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-/**
- * Create sparkle effect at mouse position
- */
-function createSparkle(x, y) {
-    const sparkleContainer = document.getElementById('sparkle-container');
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.textContent = '✨';
-    sparkle.style.left = x + 'px';
-    sparkle.style.top = y + 'px';
-    
-    sparkleContainer.appendChild(sparkle);
-    
-    setTimeout(() => sparkle.remove(), 1500);
-}
-
-/**
- * Create floating petals
- */
-function createFloatingPetal() {
-    const container = document.querySelector('.petals-container');
-    if (!container) return;
-    
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    petal.style.left = Math.random() * window.innerWidth + 'px';
-    petal.style.background = getRandomItem([
-        'var(--pink)',
-        'var(--light-pink)',
-        'var(--yellow)',
-        'var(--light-yellow)',
-        'var(--mint)'
-    ]);
-    
-    container.appendChild(petal);
-    
-    setTimeout(() => petal.remove(), 8000);
-}
-
-/**
- * Typing animation effect
- */
-async function typeText(element, text, speed = 50) {
-    element.innerHTML = '';
-    
-    for (let char of text) {
-        element.innerHTML += char;
-        await new Promise(resolve => setTimeout(resolve, speed));
-    }
-    
-    // Add cursor
-    const cursor = document.createElement('span');
-    cursor.className = 'typing-cursor';
-    element.appendChild(cursor);
-}
-
-/**
- * Update energy bar
- */
-function updateEnergyBar() {
-    const bar = document.getElementById('energy-bar');
-    const percentage = document.getElementById('energy-percentage');
-    const energy = appState.energyLevel;
-    
-    bar.style.width = energy + '%';
-    percentage.textContent = energy + '%';
-}
-
-/**
- * Increase energy
- */
-function increaseEnergy(amount = 10) {
-    appState.energyLevel = Math.min(100, appState.energyLevel + amount);
-    updateEnergyBar();
-}
-
-/**
- * Save to localStorage
- */
 function saveState() {
-    localStorage.setItem('gratitudeEntries', JSON.stringify(appState.gratitudeEntries));
-    localStorage.setItem('moods', JSON.stringify(appState.moods));
+  localStorage.setItem('energyLevel', String(state.energy));
+  localStorage.setItem('moods', JSON.stringify(state.moods.slice(-20)));
+  localStorage.setItem('gratitudeEntries', JSON.stringify(state.gratitudeEntries.slice(-20)));
 }
 
-// ======================================
-// MOOD AI SYSTEM
-// ======================================
-
-/**
- * Handle mood selection
- */
-function handleMoodSelection(mood) {
-    appState.currentMood = mood;
-    appState.moods.push({
-        mood: mood,
-        timestamp: new Date().toISOString()
-    });
-    saveState();
-    
-    // Visual feedback
-    document.body.classList.add('mood-changed');
-    setTimeout(() => document.body.classList.remove('mood-changed'), 800);
-    
-    // Get AI response
-    generateAIMoodResponse(mood);
-    
-    // Increase energy
-    increaseEnergy(15);
-    
-    // Create sparkles
-    for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-            createSparkle(
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerHeight
-            );
-        }, i * 100);
-    }
+function typeText(el, text, speed = 27) {
+  el.textContent = '';
+  return new Promise((resolve) => {
+    let i = 0;
+    const timer = setInterval(() => {
+      el.textContent += text[i] || '';
+      i += 1;
+      if (i > text.length) {
+        clearInterval(timer);
+        resolve();
+      }
+    }, speed);
+  });
 }
 
-/**
- * Generate AI personalized response
- */
-async function generateAIMoodResponse(mood) {
-    const messages = moodData[mood].messages;
-    const message = getRandomItem(messages);
-    
-    const responseBox = document.getElementById('ai-response');
-    const typingText = document.getElementById('typing-text');
-    
-    responseBox.style.display = 'block';
-    responseBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
-    await typeText(typingText, message, 30);
+function createSparkle(x, y, char = '✨') {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.textContent = char;
+  sparkle.style.left = `${x}px`;
+  sparkle.style.top = `${y}px`;
+  $('sparkle-container').appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 1400);
 }
 
-// Setup mood buttons
-document.querySelectorAll('.mood-sphere').forEach(button => {
-    button.addEventListener('click', function() {
-        // Remove previous selection
-        document.querySelectorAll('.mood-sphere').forEach(b => b.classList.remove('selected'));
-        
-        // Add selection to clicked button
-        this.classList.add('selected');
-        
-        // Get mood and handle
-        const mood = this.getAttribute('data-mood');
-        handleMoodSelection(mood);
-    });
-});
-
-// ======================================
-// GRATITUDE SYSTEM
-// ======================================
-
-/**
- * Display gratitude entries
- */
-function displayGratitudeEntries() {
-    const container = document.getElementById('gratitude-entries');
-    container.innerHTML = '';
-    
-    // Show latest entries first
-    const entries = [...appState.gratitudeEntries].reverse().slice(0, 5);
-    
-    entries.forEach((entry, index) => {
-        const div = document.createElement('div');
-        div.className = 'gratitude-entry';
-        div.innerHTML = `
-            <p>💚 ${entry.text}</p>
-            <small>${new Date(entry.timestamp).toLocaleDateString('ar-EG')}</small>
-        `;
-        container.appendChild(div);
-    });
+function createPetal() {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.style.left = `${Math.random() * window.innerWidth}px`;
+  document.querySelector('.petals-container').appendChild(p);
+  setTimeout(() => p.remove(), 8000);
 }
 
-/**
- * Handle gratitude submission
- */
-document.getElementById('gratitude-submit').addEventListener('click', function() {
-    const input = document.getElementById('gratitude-input');
-    const text = input.value.trim();
-    
-    if (!text) {
-        alert('الرجاء كتابة شيء تشكر عليه! 🙏');
-        return;
-    }
-    
-    // Add entry
-    appState.gratitudeEntries.push({
-        text: text,
-        timestamp: new Date().toISOString()
-    });
-    saveState();
-    
-    // Clear input
-    input.value = '';
-    input.focus();
-    
-    // Create heart particles
-    for (let i = 0; i < 8; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'sparkle';
-        heart.textContent = '💚';
-        heart.style.left = (this.getBoundingClientRect().left + 50) + 'px';
-        heart.style.top = (this.getBoundingClientRect().top) + 'px';
-        document.getElementById('sparkle-container').appendChild(heart);
-        
-        setTimeout(() => heart.remove(), 1500);
-    }
-    
-    // Show random quote
-    const quoteBox = document.getElementById('quote-box');
-    const quoteText = document.getElementById('quote-text');
-    quoteBox.style.display = 'block';
-    quoteText.textContent = '✨ ' + getRandomItem(dailyQuotes) + ' ✨';
-    quoteBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
-    // Display entries
-    displayGratitudeEntries();
-    
-    // Increase energy
-    increaseEnergy(20);
-    
-    // Create floating petals
-    for (let i = 0; i < 3; i++) {
-        setTimeout(() => createFloatingPetal(), i * 200);
-    }
-});
+function createLightParticles(count = 7) {
+  const layer = $('light-particles');
+  for (let i = 0; i < count; i += 1) {
+    const dot = document.createElement('span');
+    dot.className = 'light-dot';
+    dot.style.left = `${10 + Math.random() * 80}%`;
+    dot.style.bottom = `${Math.random() * 30}%`;
+    dot.style.animationDelay = `${i * 80}ms`;
+    layer.appendChild(dot);
+    setTimeout(() => dot.remove(), 6100);
+  }
+}
 
-// Initialize gratitude entries on load
-displayGratitudeEntries();
+function increaseEnergy(amount) {
+  state.energy = Math.min(100, state.energy + amount);
+  $('energy-bar').style.width = `${state.energy}%`;
+  $('energy-percentage').textContent = `${Math.round(state.energy)}%`;
+  saveState();
+  updatePersonalEnergyMessage();
+}
 
-// ======================================
-// GAMES SYSTEM
-// ======================================
+function setMood(moodKey) {
+  state.currentMood = moodKey;
+  state.moods.push({ mood: moodKey, timestamp: Date.now() });
+  saveState();
 
-// Game 1: Catch Flowers
-let flowerScore = 0;
-let gameActive = false;
-let flowers = [];
+  Object.keys(moodData).forEach((key) => document.body.classList.remove(moodData[key].colorClass));
+  document.body.classList.add(moodData[moodKey].colorClass, 'mood-changed');
+  setTimeout(() => document.body.classList.remove('mood-changed'), 600);
+  $('mood-flower').textContent = moodData[moodKey].flower;
 
-const canvas = document.getElementById('catch-canvas');
+  const message = randomItem(moodData[moodKey].messages);
+  $('ai-response').hidden = false;
+  typeText($('typing-text'), `أشعر بك اليوم... ${message}`);
+  createLightParticles(moodKey === 'sad' ? 14 : 8);
+  increaseEnergy(16);
+}
+
+function renderGratitudeBook() {
+  const box = $('gratitude-entries');
+  box.innerHTML = '';
+  state.gratitudeEntries.slice(-6).reverse().forEach((entry) => {
+    const card = document.createElement('article');
+    card.className = 'gratitude-entry';
+    card.innerHTML = `<p>💚 ${entry.text}</p><small>${new Date(entry.timestamp).toLocaleDateString('ar-EG')}</small>`;
+    box.appendChild(card);
+  });
+}
+
+function submitGratitude() {
+  const input = $('gratitude-input');
+  const text = input.value.trim();
+  if (!text) return;
+  state.gratitudeEntries.push({ text, timestamp: Date.now() });
+  saveState();
+  input.value = '';
+
+  const quote = randomItem(dailyQuotes);
+  $('quote-box').hidden = false;
+  $('quote-text').textContent = `✨ ${quote} ✨`;
+
+  for (let i = 0; i < 9; i += 1) {
+    const x = window.innerWidth / 2 + (Math.random() * 160 - 80);
+    const y = window.innerHeight / 2 + (Math.random() * 120 - 60);
+    createSparkle(x, y, '💗');
+  }
+
+  renderGratitudeBook();
+  increaseEnergy(20);
+  updatePersonalEnergyMessage();
+}
+
+function updatePersonalEnergyMessage() {
+  const moods = state.moods.slice(-3).map((m) => m.mood);
+  const lastMood = moods[moods.length - 1] || 'calm';
+  const lastGratitude = state.gratitudeEntries[state.gratitudeEntries.length - 1]?.text || '';
+  const lengthFactor = lastGratitude.length;
+
+  let moodTone = 'قلبك اليوم متزن وجميل.';
+  if (lastMood === 'sad') moodTone = 'رغم الحزن، لديك نور داخلي رائع.';
+  if (lastMood === 'stressed') moodTone = 'وسط الضغط، ما زلت تتقدم بشجاعة.';
+  if (lastMood === 'excited') moodTone = 'حماسك يفتح أمامك أبواباً جميلة.';
+  if (lastMood === 'happy') moodTone = 'فرحك ينعكس لطفاً على من حولك.';
+
+  const memoryTone = moods.length > 1 ? `أتذكر مزاجاتك الأخيرة: ${moods.map((m) => ({ happy: 'سعيد', sad: 'حزين', stressed: 'متوتر', calm: 'هادئ', excited: 'متحمس' }[m])).join(' ← ')}.` : 'هذه بداية جميلة لرحلتنا معاً.';
+  const gratitudeTone = lengthFactor > 80 ? 'كتابتك التفصيلية عن الامتنان تعني أن قلبك متصل بعمق بالنِعَم.' : 'حتى كلمات الامتنان القصيرة تصنع أثراً كبيراً.';
+
+  typeText($('energy-ai-message'), `${moodTone} ${gratitudeTone} ${memoryTone}`);
+}
+
+function initDailySpark() {
+  $('daily-quote').textContent = `✨ ${randomItem(dailyQuotes)} ✨`;
+  $('daily-affirmation').textContent = randomItem(dailyAffirmations);
+}
+
+// Game: catch flowers
+const canvas = $('catch-canvas');
 const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-    canvas.width = Math.min(400, window.innerWidth - 40);
-    canvas.height = 300;
-}
-
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+let flowers = [];
+let score = 0;
 
 class Flower {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = 0;
-        this.width = 40;
-        this.height = 40;
-        this.speedY = Math.random() * 2 + 1;
-    }
-    
-    draw() {
-        ctx.font = '30px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText('🌸', this.x, this.y);
-    }
-    
-    update() {
-        this.y += this.speedY;
-    }
-    
-    isClicked(mouseX, mouseY) {
-        return mouseX > this.x - 20 && mouseX < this.x + 20 &&
-               mouseY > this.y - 20 && mouseY < this.y + 20;
-    }
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = -20;
+    this.z = 0.6 + Math.random() * 0.8;
+    this.speed = 1.4 + Math.random() * 1.8;
+  }
+  draw() {
+    ctx.font = `${Math.round(24 * this.z)}px Arial`;
+    ctx.fillText('🌸', this.x, this.y);
+  }
+  update() { this.y += this.speed; }
 }
 
-function drawGameScene() {
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw background
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Update and draw flowers
-    for (let i = flowers.length - 1; i >= 0; i--) {
-        flowers[i].update();
-        flowers[i].draw();
-        
-        if (flowers[i].y > canvas.height) {
-            flowers.splice(i, 1);
-        }
-    }
-    
-    if (gameActive) {
-        requestAnimationFrame(drawGameScene);
-    }
+function drawGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, 'rgba(255,255,255,0.7)');
+  gradient.addColorStop(1, 'rgba(225,245,255,0.45)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  flowers = flowers.filter((f) => f.y < canvas.height + 30);
+  flowers.forEach((f) => { f.update(); f.draw(); });
+
+  if (state.gameActive) requestAnimationFrame(drawGame);
 }
 
-function startFlowerGame() {
-    gameActive = true;
-    flowerScore = 0;
-    flowers = [];
-    document.getElementById('flower-score').textContent = '0';
-    
-    // Spawn flowers
-    const spawnInterval = setInterval(() => {
-        if (gameActive) {
-            flowers.push(new Flower());
-        } else {
-            clearInterval(spawnInterval);
-        }
-    }, 300);
-    
-    // Stop after 20 seconds
-    setTimeout(() => {
-        gameActive = false;
-        clearInterval(spawnInterval);
-        alert(`🎉 انتهت اللعبة!\nحصلت على ${flowerScore} نقطة! 🌸`);
-        increaseEnergy(flowerScore / 2);
-    }, 20000);
-    
-    drawGameScene();
+function startGame() {
+  if (state.gameActive) return;
+  score = 0;
+  flowers = [];
+  $('flower-score').textContent = '0';
+  state.gameActive = true;
+
+  const words = ['أمل', 'نجاح', 'شجاعة', 'حب', 'طمأنينة', 'إشراقة'];
+  const wordTicker = setInterval(() => { $('positive-floating-word').textContent = randomItem(words); }, 900);
+  const spawner = setInterval(() => { flowers.push(new Flower()); }, 380);
+
+  drawGame();
+  setTimeout(() => {
+    state.gameActive = false;
+    clearInterval(spawner);
+    clearInterval(wordTicker);
+    increaseEnergy(Math.min(22, score * 2));
+  }, 18000);
 }
 
 canvas.addEventListener('click', (e) => {
-    if (!gameActive) return;
-    
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    
-    for (let i = flowers.length - 1; i >= 0; i--) {
-        if (flowers[i].isClicked(mouseX, mouseY)) {
-            flowers.splice(i, 1);
-            flowerScore++;
-            document.getElementById('flower-score').textContent = flowerScore;
-            
-            // Create sparkles
-            createSparkle(e.clientX, e.clientY);
-        }
+  if (!state.gameActive) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  flowers = flowers.filter((f) => {
+    const hit = Math.abs(f.x - x) < 22 && Math.abs(f.y - y) < 22;
+    if (hit) {
+      score += 1;
+      $('flower-score').textContent = String(score);
+      createSparkle(e.clientX, e.clientY);
     }
+    return !hit;
+  });
 });
 
-document.getElementById('catch-start').addEventListener('click', startFlowerGame);
-
-// Game 2: Positive Word Generator
-document.getElementById('word-generate').addEventListener('click', function() {
-    const word = getRandomItem(positiveWords);
-    const display = document.getElementById('word-display');
-    
-    // Play sound effect
-    playSound('success');
-    
-    display.textContent = word;
-    display.style.animation = 'none';
-    
-    setTimeout(() => {
-        display.style.animation = 'wordAppear 0.6s ease-out';
-    }, 10);
-    
-    // Create sparkles around word
-    for (let i = 0; i < 12; i++) {
-        const angle = (Math.PI * 2 * i) / 12;
-        const x = window.innerWidth / 2 + Math.cos(angle) * 100;
-        const y = window.innerHeight / 2 + Math.sin(angle) * 100;
-        
-        setTimeout(() => createSparkle(x, y), i * 50);
-    }
-    
-    increaseEnergy(10);
-});
-
-// ======================================
-// DAILY SPARK SECTION
-// ======================================
-
-/**
- * Initialize daily spark
- */
-function initializeDailySpark() {
-    const quote = getRandomItem(dailyQuotes);
-    const affirmation = getRandomItem(dailyAffirmations);
-    
-    document.getElementById('daily-quote').textContent = '✨ ' + quote + ' ✨';
-    document.getElementById('daily-affirmation').textContent = affirmation;
+function playBeep() {
+  const ctxAudio = state.audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+  state.audioCtx = ctxAudio;
+  const osc = ctxAudio.createOscillator();
+  const gain = ctxAudio.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = 660;
+  gain.gain.setValueAtTime(0.001, ctxAudio.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.07, ctxAudio.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctxAudio.currentTime + 0.24);
+  osc.connect(gain).connect(ctxAudio.destination);
+  osc.start();
+  osc.stop(ctxAudio.currentTime + 0.25);
 }
 
-// ======================================
-// HERO SECTION
-// ======================================
+function toggleAmbient() {
+  if (!state.audioCtx) state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const btn = $('audio-toggle');
 
-document.getElementById('start-journey').addEventListener('click', function() {
-    document.getElementById('mood-section').scrollIntoView({ behavior: 'smooth' });
-});
+  if (state.ambientInterval) {
+    clearInterval(state.ambientInterval);
+    state.ambientInterval = null;
+    btn.classList.remove('playing');
+    btn.textContent = '🎵';
+    return;
+  }
 
-// ======================================
-// AUDIO CONTROL
-// ======================================
+  const notes = [261.63, 329.63, 392.0, 523.25];
+  const playAmbientNote = () => {
+    const osc = state.audioCtx.createOscillator();
+    const gain = state.audioCtx.createGain();
+    osc.frequency.value = randomItem(notes);
+    osc.type = 'triangle';
+    gain.gain.setValueAtTime(0.0001, state.audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.03, state.audioCtx.currentTime + 0.6);
+    gain.gain.exponentialRampToValueAtTime(0.0001, state.audioCtx.currentTime + 2.8);
+    osc.connect(gain).connect(state.audioCtx.destination);
+    osc.start();
+    osc.stop(state.audioCtx.currentTime + 3);
+  };
 
-const audioToggle = document.getElementById('audio-toggle');
-const bgMusic = document.getElementById('bg-music');
-
-audioToggle.addEventListener('click', function() {
-    if (bgMusic.paused) {
-        bgMusic.play().catch(() => console.log('Audio playback failed'));
-        audioToggle.classList.add('playing');
-    } else {
-        bgMusic.pause();
-        audioToggle.classList.remove('playing');
-    }
-});
-
-// ======================================
-// SOUND EFFECTS
-// ======================================
-
-/**
- * Play sound effect
- */
-function playSound(type) {
-    // Create a simple audio context for sound effects
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        if (type === 'success') {
-            oscillator.frequency.value = 800;
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.2);
-        } else if (type === 'click') {
-            oscillator.frequency.value = 600;
-            gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.1);
-        }
-    } catch (e) {
-        console.log('Audio context not available');
-    }
+  playAmbientNote();
+  state.ambientInterval = setInterval(playAmbientNote, 2400);
+  btn.classList.add('playing');
+  btn.textContent = '🔊';
 }
 
-// ======================================
-// INTERACTION EFFECTS
-// ======================================
+function initEvents() {
+  $('start-journey').addEventListener('click', () => {
+    document.body.classList.add('deep-garden');
+    $('mood-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
-/**
- * Create petals periodically
- */
-setInterval(() => {
-    if (Math.random() > 0.7) {
-        createFloatingPetal();
-    }
-}, 2000);
+  document.querySelectorAll('.mood-sphere').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mood-sphere').forEach((m) => m.classList.remove('selected'));
+      btn.classList.add('selected');
+      setMood(btn.dataset.mood);
+    });
+  });
 
-/**
- * Track clicks and create sparkles
- */
-document.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-        playSound('click');
-    }
-});
+  $('gratitude-submit').addEventListener('click', submitGratitude);
+  $('catch-start').addEventListener('click', startGame);
 
-// ======================================
-// INITIALIZATION
-// ======================================
+  $('word-generate').addEventListener('click', () => {
+    $('word-display').textContent = `${randomItem(positiveWords)} ✨`;
+    $('word-display').style.animation = 'none';
+    setTimeout(() => { $('word-display').style.animation = 'wordAppear .6s ease'; }, 10);
+    playBeep();
+    createLightParticles(8);
+    increaseEnergy(9);
+  });
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize daily spark
-    initializeDailySpark();
-    
-    // Set initial energy
-    increaseEnergy(5);
-    
-    // Create initial petals
-    createFloatingPetal();
-    createFloatingPetal();
-    createFloatingPetal();
-    
-    console.log('🌸 ومضات إيجابية - تم التحميل بنجاح! 🌸');
-});
+  $('audio-toggle').addEventListener('click', toggleAmbient);
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('button')) createSparkle(e.clientX, e.clientY);
+  });
+}
 
-// ======================================
-// KEYBOARD SHORTCUTS
-// ======================================
+function init() {
+  initDailySpark();
+  renderGratitudeBook();
+  increaseEnergy(5);
+  updatePersonalEnergyMessage();
+  initEvents();
+  setInterval(() => { if (Math.random() > 0.35) createPetal(); }, 1500);
+}
 
-document.addEventListener('keydown', (e) => {
-    // Spacebar to generate word
-    if (e.code === 'Space' && e.target === document.body) {
-        e.preventDefault();
-        document.getElementById('word-generate').click();
-    }
-});
+document.addEventListener('DOMContentLoaded', init);
